@@ -1,2 +1,2 @@
 # fake-timers
-Fake timers: performance.now &amp; date.now()
+Fake timers `performance.now()` &amp; `Date.now()` when you need them to be deterministic.
