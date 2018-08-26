@@ -1,2 +1,2 @@
-# mock-timers
-Mock timers: performance.now &amp; date.now()
+# fake-timers
+Fake timers: performance.now &amp; date.now()
