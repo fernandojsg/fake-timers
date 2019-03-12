@@ -81,30 +81,29 @@ export default {
   timeScale: 1.0,
   fakedTime: 0,
   enabled: false,
+  refreshRate: 60,
   needsFakeMonotonouslyIncreasingTimer: false,
   setFakedTime: function( newFakedTime ) {
     this.fakedTime = newFakedTime;
   },
   enable: function () {
     Date = MockDate;
-    
+
     var self = this;
     if (this.needsFakeMonotonouslyIncreasingTimer) {
-      Date.now = function() { self.fakedTime += self.timeScale; return self.fakedTime; }
-      performance.now = function() { self.fakedTime += self.timeScale; return self.fakedTime; }
+      performance.now = Date.now = function() { self.fakedTime += self.timeScale; return self.fakedTime; };
     } else {
-      Date.now = function() { return self.fakedTime * 1000.0 * self.timeScale / 60.0; }
-      performance.now = function() { return self.fakedTime * 1000.0 * self.timeScale / 60.0; }
+      performance.now = Date.now = function() { return self.fakedTime * 1000.0 * self.timeScale / this.refreshRate; }
     }
-  
+
     this.enabled = true;
   },
   disable: function () {
     if (!this.enabled) { return; };
-    
-    Date = RealDate;    
+
+    Date = RealDate;
     performance.now = realPerformance.now;
-    
-    this.enabled = false;    
+
+    this.enabled = false;
   }
 }
