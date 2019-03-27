@@ -93,7 +93,7 @@ export default {
     if (this.needsFakeMonotonouslyIncreasingTimer) {
       performance.now = Date.now = function() { self.fakedTime += self.timeScale; return self.fakedTime; };
     } else {
-      performance.now = Date.now = function() { return self.fakedTime * 1000.0 * self.timeScale / this.refreshRate; }
+      performance.now = Date.now = function() { return self.fakedTime * 1000.0 * self.timeScale / self.refreshRate; }
     }
 
     this.enabled = true;
